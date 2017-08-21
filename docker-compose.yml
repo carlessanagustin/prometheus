@@ -16,7 +16,7 @@ services:
     container_name: prometheus
     volumes:
       - ./prometheus/:/etc/prometheus/
-      - data_prometheus:/prometheus
+      - ./data_prometheus:/prometheus
     command:
       - '-config.file=/etc/prometheus/prometheus.yml'
       - '-storage.local.path=/prometheus'
@@ -26,7 +26,6 @@ services:
     ports:
       - 9090:9090
     links:
-      - cadvisor:cadvisor
       - alertmanager:alertmanager
     depends_on:
       - cadvisor
@@ -88,7 +87,7 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - data_grafana:/var/lib/grafana
+      - ./data_grafana:/var/lib/grafana
     env_file:
       - ./grafana/config.monitoring
     networks:
