@@ -1,8 +1,8 @@
 version: '2'
 
 volumes:
-    prometheus_data: {}
-    grafana_data: {}
+    data_prometheus: {}
+    data_grafana: {}
 
 networks:
   front-tier:
@@ -16,7 +16,7 @@ services:
     container_name: prometheus
     volumes:
       - ./prometheus/:/etc/prometheus/
-      - prometheus_data:/prometheus
+      - data_prometheus:/prometheus
     command:
       - '-config.file=/etc/prometheus/prometheus.yml'
       - '-storage.local.path=/prometheus'
@@ -45,6 +45,7 @@ services:
       - 9100
     networks:
       - back-tier
+
   alertmanager:
     image: prom/alertmanager
     ports:
@@ -56,6 +57,17 @@ services:
     command:
       - '-config.file=/etc/alertmanager/config.yml'
       - '-storage.path=/alertmanager'
+
+  pushgateway:
+    image: prom/pushgateway
+    depends_on:
+      - prometheus
+    expose:
+      - 9091
+    ports:
+      - 9091:9091
+    networks:
+      - back-tier
 
   cadvisor:
     image: google/cadvisor
@@ -76,9 +88,9 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - grafana_data:/var/lib/grafana
+      - data_grafana:/var/lib/grafana
     env_file:
-      - config.monitoring
+      - ./grafana/config.monitoring
     networks:
       - back-tier
       - front-tier
