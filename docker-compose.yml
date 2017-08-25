@@ -12,7 +12,7 @@ networks:
 
 services:
   prometheus:
-    image: prom/prometheus
+    image: prom/prometheus:v1.7.1
     container_name: prometheus
     volumes:
       - ./prometheus/:/etc/prometheus/
@@ -34,7 +34,7 @@ services:
 
   node-exporter:
     container_name: node-exporter
-    image: prom/node-exporter
+    image: prom/node-exporter:v0.14.0
     volumes:
       - /proc:/host/proc:ro
       - /sys:/host/sys:ro
@@ -46,7 +46,7 @@ services:
       - back-tier
 
   alertmanager:
-    image: prom/alertmanager
+    image: prom/alertmanager:v0.8.0
     ports:
       - 9093:9093
     volumes:
@@ -58,7 +58,7 @@ services:
       - '-storage.path=/alertmanager'
 
   pushgateway:
-    image: prom/pushgateway
+    image: prom/pushgateway:v0.4.0
     depends_on:
       - prometheus
     expose:
@@ -69,7 +69,7 @@ services:
       - back-tier
 
   cadvisor:
-    image: google/cadvisor
+    image: google/cadvisor:v0.25.0
     volumes:
       - /:/rootfs:ro
       - /var/run:/var/run:rw
@@ -81,7 +81,7 @@ services:
       - back-tier
 
   grafana:
-    image: grafana/grafana
+    build: ./grafana/
     depends_on:
       - prometheus
     ports:
