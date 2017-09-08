@@ -1,0 +1,13 @@
+route:
+    receiver: 'email'
+
+receivers:
+    - name: 'email'
+      email_configs:
+        - send_resolved: true
+          to:
+          from:
+          smarthost:
+          require_tls: true
+          auth_username:
+          auth_password:

@@ -1,0 +1,8 @@
+ALERT NodeLoadAverage
+  IF ((node_load5 / count without (cpu, mode) (node_cpu{mode="system"})) > 1)
+  FOR 2m
+  LABELS { area = "cpu" }
+  ANNOTATIONS {
+    SUMMARY = "{{$labels.instance}}: High Load Average detected",
+    DESCRIPTION = "{{$labels.instance}}: Load Average is high"
+  }
