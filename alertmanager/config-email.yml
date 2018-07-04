@@ -1,0 +1,37 @@
+route:
+    receiver: 'email'
+
+receivers:
+    - name: 'email'
+      email_configs:
+        - send_resolved: true
+          to: csanagustin@worldsensing.com
+          from: notifications@worldsensing.com
+          smarthost: mail.smtp2go.com:587
+          require_tls: true
+          auth_username: monitor0001
+          auth_password: ZHJmYXk2Y2VnbDAw
+
+#          - name: 'email'
+#            email_configs:
+#              - send_resolved: true
+#                to: <tmpl_string>
+#                from: <tmpl_string> | default = global.smtp_from
+#                smarthost: <string> | default = global.smtp_smarthost
+#                auth_username: <string>
+#                auth_password: <secret>
+#                auth_secret: <secret>
+#                auth_identity: <string>
+#                require_tls: <bool> | default = global.smtp_require_tls
+#                html: <tmpl_string> | default = '{{ template "email.default.html" . }}'
+
+#          "mailer": {
+#            "admin_gui": "https://fp-cloud-mon-01.bitcarrier.net:3000",
+#            "mail_from": "notifications@worldsensing.com",
+#            "mail_to": "csanagustin@worldsensing.com",
+#            "smtp_username": "monitor0001",
+#            "smtp_password": "ZHJmYXk2Y2VnbDAw",
+#            "smtp_port": "587",
+#            "smtp_address": "smtp2go.com",
+#            "smtp_domain": "mail.smtp2go.com",
+#            "smtp_enable_starttls_auto": "true"

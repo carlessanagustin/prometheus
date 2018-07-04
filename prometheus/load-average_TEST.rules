@@ -1,0 +1,14 @@
+ALERT warning_load
+  IF node_load5 > 0.7
+  LABELS { area = "test" }
+  ANNOTATIONS {
+      summary = "WARNING - Instance {{ $labels.instance }} under high load",
+      description = "{{ $labels.instance }} of job {{ $labels.job }} is under high load.",
+  }
+ALERT alert_load
+  IF node_load5 > 1.0
+  LABELS { area = "test" }
+  ANNOTATIONS {
+      summary = "ALERT - Instance {{ $labels.instance }} under high load",
+      description = "{{ $labels.instance }} of job {{ $labels.job }} is under high load.",
+  }
